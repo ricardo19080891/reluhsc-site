@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ReluhSC builds apps, AI agents and industrial AI for businesses that want to work smarter. Made in South Carolina. English, Portuguese and Spanish.">
+<meta property="og:title" content="ReluhSC – Innovating the Future with AI">
+<meta property="og:description" content="Apps, AI agents and industrial AI. Made in South Carolina.">
+<meta property="og:url" content="https://reluhsc.com/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#04090B">
+<title>ReluhSC – Innovating the Future with AI</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2744%27 fill=%27%2304090B%27 stroke=%27%232EE6D6%27 stroke-width=%278%27/%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2716%27 fill=%27%232EE6D6%27/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: dark holographic single look. Wide hero with a live globe, then calm bands; content column 1180px. */
+:root{
+  --bg:#04090B; --surface:#0A1518; --surface-2:#0E1D21; --line:#17302F;
+  --fg:#E6F4F2; --muted:#93B5B1; --faint:#5E7F7B;
+  --accent:#2EE6D6; --accent-deep:#0B7F78; --on-accent:#022523;
+  --warn:#F2B84B; --soon:#9DB6FF;
+  --display:"Orbitron", "Eurostile", "Segoe UI", sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --maxw:1180px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:var(--accent)}
+a:hover{color:#9FF7EE}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.15}
+p{margin:0}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);font-size:18px;max-width:62ch}
+section{scroll-margin-top:84px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .bar{display:flex;align-items:center;gap:20px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--fg)}
+.brand svg{flex:none}
+.wordmark{font-family:var(--display);font-weight:800;letter-spacing:.08em;font-size:19px;white-space:nowrap}
+.wordmark b{color:var(--accent);font-weight:800}
+nav.links{display:flex;gap:26px;margin-left:auto}
+nav.links a{color:var(--muted);text-decoration:none;font-size:14.5px;font-weight:500}
+nav.links a:hover{color:var(--fg)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang button{background:none;border:0;color:var(--muted);font-family:var(--mono);font-size:12px;padding:6px 10px;border-radius:999px;cursor:pointer;min-height:32px}
+.lang button[aria-pressed="true"]{background:var(--surface-2);color:var(--accent)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 22px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;cursor:pointer;border:1px solid transparent;font-family:var(--body)}
+.btn.primary{background:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{background:#7FF2E8;color:var(--on-accent)}
+.btn.ghost{border-color:var(--line);color:var(--fg);background:transparent}
+.btn.ghost:hover{border-color:var(--accent-deep);color:var(--fg)}
+.top .btn{min-height:40px;padding:0 16px;font-size:14px}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--fg);border-radius:10px;min-height:42px;min-width:44px;cursor:pointer}
+.mobile-nav{border-top:1px solid var(--line);padding-block:12px 18px}
+.mobile-nav a{display:block;color:var(--fg);text-decoration:none;padding:12px 0;font-size:17px;border-bottom:1px solid var(--line)}
+@media (max-width:900px){nav.links,.top .cta-top{display:none}.menu-btn{display:inline-flex;align-items:center;justify-content:center;margin-left:auto}}
+@media (max-width:420px){.wordmark{font-size:16px}.lang button{padding:6px 7px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;opacity:.28;mask-image:radial-gradient(ellipse at 70% 45%,#000 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 45%,#000 0%,transparent 70%)}
+.hero .grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;padding-block:72px 64px}
+.hero h1{font-family:var(--body);font-weight:700;font-size:clamp(36px,5.4vw,64px);letter-spacing:-.02em;margin-top:18px}
+.hero h1 span:last-child{color:var(--accent)}
+.hero .lead{margin-top:22px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:40px;font-family:var(--mono);font-size:13px;color:var(--faint)}
+.hero .meta span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--accent-deep);margin-right:8px;vertical-align:middle}
+.globe-box{position:relative;width:100%;max-width:480px;aspect-ratio:1;margin-left:auto}
+.globe-box canvas{width:100%;height:100%;display:block}
+.globe-tag{position:absolute;font-family:var(--mono);font-size:11.5px;color:var(--muted);background:color-mix(in srgb,var(--surface) 85%,transparent);border:1px solid var(--line);padding:6px 10px;border-radius:8px;white-space:nowrap}
+.globe-tag.t1{top:12%;left:0}
+.globe-tag.t2{bottom:16%;right:0}
+.globe-tag i{font-style:normal;color:var(--accent)}
+@media (max-width:860px){.hero .grid{grid-template-columns:minmax(0,1fr);padding-block:40px 48px;gap:24px}.globe-box{order:-1;max-width:300px;margin:0 auto}}
+
+/* stack strip */
+.stack{border-bottom:1px solid var(--line);background:var(--surface)}
+.stack .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:12px 30px;padding-block:20px}
+.stack .label{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.stack ul{display:flex;flex-wrap:wrap;gap:10px 28px;list-style:none;margin:0;padding:0;color:var(--muted);font-weight:500;font-size:15px}
+
+/* bands */
+.band{padding-block:96px}
+.band.alt{background:var(--surface);border-block:1px solid var(--line)}
+.head{display:grid;gap:14px;margin-bottom:48px}
+.head h2{font-size:clamp(28px,3.6vw,42px);font-weight:700;letter-spacing:-.015em}
+@media (max-width:640px){.band{padding-block:64px}}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.svc{background:var(--bg);padding:30px 26px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.svc .ix{font-family:var(--mono);font-size:12px;color:var(--faint)}
+.svc h3{font-size:20px;font-weight:600}
+.svc p{color:var(--muted);font-size:15px}
+.svc .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}
+.tag{font-family:var(--mono);font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+@media (max-width:1000px){.services{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.services{grid-template-columns:minmax(0,1fr)}}
+
+/* products */
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.prod{background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:30px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.prod.feature{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:center}
+.prod .top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.prod h3{font-size:26px;font-weight:700}
+.prod .kind{font-family:var(--mono);font-size:12.5px;color:var(--faint);margin-top:4px}
+.prod p{color:var(--muted)}
+.prod ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.prod li{display:flex;gap:10px;font-size:15px}
+.prod li::before{content:"";flex:none;width:7px;height:7px;margin-top:9px;border-radius:2px;background:var(--accent-deep);transform:rotate(45deg)}
+.status{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:5px 11px;border:1px solid currentColor;white-space:nowrap}
+.status::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.status.dev{color:var(--accent)}
+.status.proto{color:var(--warn)}
+.status.soon{color:var(--soon)}
+.status.research{color:var(--muted)}
+.phone{justify-self:center;width:100%;max-width:250px;aspect-ratio:9/18.5;border:1px solid var(--line);border-radius:30px;background:var(--surface-2);padding:18px 14px;display:flex;flex-direction:column;gap:12px}
+.phone .ph-h{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.phone .ph-card{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:12px}
+.phone .ph-k{font-size:10.5px;color:var(--faint);font-family:var(--mono)}
+.phone .ph-v{font-size:19px;font-weight:700;margin-top:2px}
+.phone .ph-v.pos{color:var(--accent)}
+.phone .bars{display:flex;align-items:flex-end;gap:5px;height:56px;margin-top:8px}
+.phone .bars span{flex:1;background:var(--accent-deep);border-radius:3px 3px 0 0}
+.phone .bars span.hi{background:var(--accent)}
+.phone .ph-note{font-size:10px;color:var(--faint);text-align:center;margin-top:auto;font-family:var(--mono)}
+@media (max-width:860px){.products{grid-template-columns:minmax(0,1fr)}.prod.feature{grid-template-columns:minmax(0,1fr)}.prod{padding:24px}}
+
+/* labs */
+.labs{margin-top:20px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:24px;align-items:center;border:1px dashed var(--line);border-radius:16px;padding:24px 28px}
+.labs .lab-k{font-family:var(--display);font-size:13px;letter-spacing:.16em;color:var(--accent)}
+.labs h3{font-size:19px;font-weight:600}
+.labs p{color:var(--muted);font-size:15px;margin-top:4px}
+@media (max-width:720px){.labs{grid-template-columns:minmax(0,1fr);gap:12px}}
+
+/* industries */
+.inds{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.ind{border-top:2px solid var(--accent-deep);padding-top:18px;display:grid;gap:8px;min-width:0}
+.ind h3{font-size:18px;font-weight:600}
+.ind p{color:var(--muted);font-size:15px}
+@media (max-width:900px){.inds{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.inds{grid-template-columns:minmax(0,1fr)}}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;position:relative}
+.step{position:relative;padding:0 24px 0 0;display:grid;gap:10px;min-width:0}
+.step .n{font-family:var(--display);font-size:13px;color:var(--accent);display:flex;align-items:center;gap:12px}
+.step .n::after{content:"";flex:1;height:1px;background:var(--line)}
+.step:last-child .n::after{display:none}
+.step h3{font-size:20px;font-weight:600}
+.step p{color:var(--muted);font-size:15px}
+@media (max-width:900px){.steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 0}}
+@media (max-width:520px){.steps{grid-template-columns:minmax(0,1fr)}.step .n::after{display:none}}
+
+/* principles */
+.prins{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.prin{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:26px;display:grid;gap:10px;min-width:0}
+.prin h3{font-size:19px;font-weight:600;display:flex;align-items:center;gap:12px}
+.prin svg{flex:none}
+.prin p{color:var(--muted);font-size:15px}
+@media (max-width:720px){.prins{grid-template-columns:minmax(0,1fr)}}
+
+/* about */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:56px;align-items:center}
+.relu{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px;display:grid;gap:14px}
+.relu .fx{font-family:var(--mono);font-size:15px;color:var(--fg)}
+.relu .fx b{color:var(--accent);font-weight:500}
+.relu svg{width:100%;height:auto;max-width:100%}
+.relu .cap{font-size:13px;color:var(--faint)}
+.about .copy{display:grid;gap:18px}
+.about .copy p{color:var(--muted);font-size:17px;max-width:62ch}
+.mission{border-left:2px solid var(--accent);padding-left:18px}
+.mission .k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.mission .v{font-size:20px;font-weight:600;color:var(--fg);margin-top:4px}
+@media (max-width:860px){.about{grid-template-columns:minmax(0,1fr);gap:32px}.about .relu{order:2}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px}
+.contact .info{display:grid;gap:18px;align-content:start}
+.mail{display:flex;flex-wrap:wrap;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.mail .k{font-family:var(--mono);font-size:12px;color:var(--faint);width:100%}
+.mail .v{font-family:var(--mono);font-size:16px;user-select:all;color:var(--fg);word-break:break-all}
+.mini{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;min-height:36px;padding:0 12px;font-size:13px;cursor:pointer;font-family:var(--body);margin-left:auto}
+.mini:hover{color:var(--fg);border-color:var(--accent-deep)}
+form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px}
+.field{display:grid;gap:6px;min-width:0}
+.field.full{grid-column:1 / -1}
+label{font-size:13.5px;color:var(--muted);font-weight:500}
+input,select,textarea{width:100%;background:var(--bg);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font:inherit;font-size:15px;min-height:46px}
+textarea{min-height:130px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.form-foot{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.result{grid-column:1 / -1;display:grid;gap:10px;border:1px solid var(--accent-deep);border-radius:12px;padding:16px;background:var(--bg)}
+.result p{color:var(--fg);font-size:15px}
+.result pre{margin:0;white-space:pre-wrap;word-break:break-word;font-family:var(--mono);font-size:13px;color:var(--muted);max-height:180px;overflow:auto}
+@media (max-width:860px){.contact{grid-template-columns:minmax(0,1fr);gap:32px}}
+@media (max-width:520px){form{grid-template-columns:minmax(0,1fr);padding:20px}}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:48px 40px}
+footer .row{display:flex;flex-wrap:wrap;gap:24px 48px;justify-content:space-between;align-items:flex-start}
+footer .tagline{font-family:var(--display);font-size:12px;letter-spacing:.18em;color:var(--muted);margin-top:12px;text-transform:uppercase}
+footer nav{display:flex;flex-wrap:wrap;gap:12px 24px}
+footer nav a{color:var(--muted);text-decoration:none;font-size:14px}
+footer nav a:hover{color:var(--fg)}
+footer .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:grid;gap:6px;font-size:12.5px;color:var(--faint)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="#top" aria-label="ReluhSC home">
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="#2EE6D6" stroke-width="5"></circle>
+        <ellipse cx="50" cy="50" rx="20" ry="42" fill="none" stroke="#2EE6D6" stroke-width="3.5" opacity=".7"></ellipse>
+        <ellipse cx="50" cy="50" rx="42" ry="10" fill="none" stroke="#2EE6D6" stroke-width="3.5" opacity=".7"></ellipse>
+        <circle cx="50" cy="50" r="11" fill="#E6FFFC"></circle>
+      </svg>
+      <span class="wordmark">RELUH<b>SC</b></span>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#products" data-i18n="nav.products">Products</a>
+      <a href="#process" data-i18n="nav.process">How we work</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pt" aria-pressed="false">PT</button>
+      <button type="button" data-lang="es" aria-pressed="false">ES</button>
+    </div>
+    <a class="btn primary cta-top" href="#contact" data-i18n="nav.cta">Start a project</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+    </button>
+  </div>
+  <div class="wrap mobile-nav" id="mobileNav" hidden>
+    <a href="#services" data-i18n="nav.services">Services</a>
+    <a href="#products" data-i18n="nav.products">Products</a>
+    <a href="#process" data-i18n="nav.process">How we work</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap grid">
+      <div>
+        <div class="eyebrow" data-i18n="hero.eyebrow">Software · Artificial intelligence · Industrial automation</div>
+        <h1 id="heroTitle"><span data-i18n="hero.t1">Software that thinks.</span> <span data-i18n="hero.t2">Machines that tell you what they need.</span></h1>
+        <p class="lead" data-i18n="hero.sub">ReluhSC builds apps, AI agents and industrial AI for businesses that want to work smarter. Made in South Carolina, delivered in English, Portuguese and Spanish.</p>
+        <div class="actions">
+          <a class="btn primary" href="#contact" data-i18n="hero.cta1">Start a project</a>
+          <a class="btn ghost" href="#products" data-i18n="hero.cta2">See our products</a>
+        </div>
+        <div class="meta">
+          <span data-i18n="hero.m1">Founded 2026</span>
+          <span data-i18n="hero.m2">South Carolina, USA</span>
+          <span>EN · PT · ES</span>
+        </div>
+      </div>
+      <div class="globe-box">
+        <canvas id="globe" aria-label="Rotating holographic globe with a glowing AI core" role="img"></canvas>
+        <div class="globe-tag t1">OPC UA · <i>live</i></div>
+        <div class="globe-tag t2">ReLU(x) = max(0, x)</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stack">
+    <div class="wrap">
+      <span class="label" data-i18n="stack.label">Built with</span>
+      <ul>
+        <li>Flutter</li><li>Python</li><li>OPC UA</li><li>TIA Portal Openness</li><li data-i18n="stack.llm">Large language models</li><li>PLCSIM</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="band" id="services" aria-labelledby="svcTitle">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow" data-i18n="svc.eyebrow">What we do</div>
+        <h2 id="svcTitle" data-i18n="svc.title">Four ways we help your business run better</h2>
+      </div>
+      <div class="services">
+        <article class="svc">
+          <div class="ix">/ apps</div>
+          <h3 data-i18n="s1.t">Custom apps</h3>
+          <p data-i18n="s1.d">Mobile and web apps for your team and your customers, designed to keep working offline in the field.</p>
+          <div class="tags"><span class="tag">Android</span><span class="tag">iOS</span><span class="tag">Web</span></div>
+        </article>
+        <article class="svc">
+          <div class="ix">/ ai</div>
+          <h3 data-i18n="s2.t">AI agents and automation</h3>
+          <p data-i18n="s2.d">Assistants that read your documents, fill your spreadsheets and handle repetitive work, connected to the tools you already use.</p>
+          <div class="tags"><span class="tag">Agents</span><span class="tag">Workflows</span><span class="tag">Data</span></div>
+        </article>
+        <article class="svc">
+          <div class="ix">/ industrial</div>
+          <h3 data-i18n="s3.t">Industrial AI</h3>
+          <p data-i18n="s3.d">AI for automation engineers: PLC code assistance, OPC UA data pipelines and anomaly detection that warns you before a machine stops.</p>
+          <div class="tags"><span class="tag">PLC</span><span class="tag">OPC UA</span><span class="tag">Predictive</span></div>
+        </article>
+        <article class="svc">
+          <div class="ix">/ web</div>
+          <h3 data-i18n="s4.t">Websites and brand</h3>
+          <p data-i18n="s4.d">Fast trilingual websites and a visual identity that shows how serious your company is about its work.</p>
+          <div class="tags"><span class="tag">EN</span><span class="tag">PT</span><span class="tag">ES</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="products" aria-labelledby="prodTitle">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow" data-i18n="prod.eyebrow">Products</div>
+        <h2 id="prodTitle" data-i18n="prod.title">What we are building</h2>
+        <p class="lead" data-i18n="prod.lead">Our own products, built in public. Each label shows where the product stands today.</p>
+      </div>
+
+      <div class="products">
+        <article class="prod feature">
+          <div style="display:grid;gap:16px;min-width:0">
+            <div class="top-row">
+              <div>
+                <h3>Kofre</h3>
+                <div class="kind" data-i18n="p1.k">Personal finance app · Android</div>
+              </div>
+              <span class="status dev" data-i18n="st.dev">In development</span>
+            </div>
+            <p data-i18n="p1.d">Budgets, debts, savings goals and net worth in one place. At the end of the year, a Financial Retrospective shows whether you closed in the green.</p>
+            <ul>
+              <li data-i18n="p1.f1">Budget and expense tracking</li>
+              <li data-i18n="p1.f2">Debt payoff plan and savings goals</li>
+              <li data-i18n="p1.f3">Year-in-review Financial Retrospective</li>
+              <li data-i18n="p1.f4">Light, dark or system theme</li>
+            </ul>
+          </div>
+          <div class="phone" aria-hidden="true">
+            <div class="ph-h"><span>Kofre</span><span>2026</span></div>
+            <div class="ph-card">
+              <div class="ph-k" data-i18n="ph.k1">Balance this month</div>
+              <div class="ph-v pos">$ 0,000.00</div>
+            </div>
+            <div class="ph-card">
+              <div class="ph-k" data-i18n="ph.k2">Expenses by month</div>
+              <div class="bars"><span style="height:46%"></span><span style="height:62%"></span><span style="height:38%"></span><span style="height:71%"></span><span style="height:55%"></span><span class="hi" style="height:84%"></span></div>
+            </div>
+            <div class="ph-card">
+              <div class="ph-k" data-i18n="ph.k3">Financial Retrospective</div>
+              <div class="ph-v" data-i18n="ph.v3">Year closed in the green</div>
+            </div>
+            <div class="ph-note" data-i18n="ph.note">Illustrative preview</div>
+          </div>
+        </article>
+
+        <article class="prod">
+          <div class="top-row">
+            <div>
+              <h3>PLC Agent</h3>
+              <div class="kind" data-i18n="p2.k">AI assistant for Siemens TIA Portal</div>
+            </div>
+            <span class="status dev" data-i18n="st.dev">In development</span>
+          </div>
+          <p data-i18n="p2.d">An AI agent that works through TIA Portal Openness to help engineers write, review and document PLC programs. Every change is tested on PLCSIM before it reaches real equipment.</p>
+          <ul>
+            <li data-i18n="p2.f1">PLC code generation and review</li>
+            <li data-i18n="p2.f2">Automatic project documentation</li>
+            <li data-i18n="p2.f3">The engineer approves every change</li>
+          </ul>
+        </article>
+
+        <article class="prod">
+          <div class="top-row">
+            <div>
+              <h3>Anomaly Monitor</h3>
+              <div class="kind" data-i18n="p3.k">Machine monitoring over OPC UA</div>
+            </div>
+            <span class="status proto" data-i18n="st.proto">Prototype</span>
+          </div>
+          <p data-i18n="p3.d">Reads live machine data over OPC UA and flags unusual temperatures, pressures and cycle times before they turn into downtime.</p>
+          <ul>
+            <li data-i18n="p3.f1">Live OPC UA connection</li>
+            <li data-i18n="p3.f2">Learns what normal looks like for each machine</li>
+            <li data-i18n="p3.f3">Alerts that explain the reason</li>
+          </ul>
+        </article>
+
+        <article class="prod">
+          <div class="top-row">
+            <div>
+              <h3>Property Ops</h3>
+              <div class="kind" data-i18n="p4.k">Cleaning and inventory for vacation rentals</div>
+            </div>
+            <span class="status soon" data-i18n="st.soon">Coming soon</span>
+          </div>
+          <p data-i18n="p4.d">A checklist and inventory app for cleaning teams that look after short-term rental properties.</p>
+          <ul>
+            <li data-i18n="p4.f1">Editable checklist for each property</li>
+            <li data-i18n="p4.f2">Works offline</li>
+            <li data-i18n="p4.f3">Photos shared only with the owner's approval</li>
+            <li data-i18n="p4.f4">Stock levels marked High, Medium or Low</li>
+          </ul>
+        </article>
+
+        <article class="prod">
+          <div class="top-row">
+            <div>
+              <h3 data-i18n="p5.t">Financial Command</h3>
+              <div class="kind" data-i18n="p5.k">Spreadsheet template · EN / PT / ES</div>
+            </div>
+            <span class="status soon" data-i18n="st.soon">Coming soon</span>
+          </div>
+          <p data-i18n="p5.d">A complete personal finance spreadsheet with budget, a debt payoff plan, goals and net worth. The starting point that grew into Kofre.</p>
+          <ul>
+            <li data-i18n="p5.f1">Monthly budget and spending categories</li>
+            <li data-i18n="p5.f2">Zero-debt plan</li>
+            <li data-i18n="p5.f3">Choose your language on the first sheet</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="labs">
+        <div class="lab-k">LABS</div>
+        <div>
+          <h3 data-i18n="lab.t">Private voice assistant</h3>
+          <p data-i18n="lab.d">A voice assistant that runs entirely on a local computer, speaks Brazilian Portuguese and wakes up with two claps. No cloud needed.</p>
+        </div>
+        <span class="status research" data-i18n="st.research">Research</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="industries" aria-labelledby="indTitle">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow" data-i18n="ind.eyebrow">Industries</div>
+        <h2 id="indTitle" data-i18n="ind.title">Where our software works</h2>
+      </div>
+      <div class="inds">
+        <div class="ind"><h3 data-i18n="i1.t">Manufacturing and automation</h3><p data-i18n="i1.d">PLC engineering, machine data and predictive maintenance.</p></div>
+        <div class="ind"><h3 data-i18n="i2.t">Hospitality and rentals</h3><p data-i18n="i2.d">Cleaning checklists, inventory and turnover between guests.</p></div>
+        <div class="ind"><h3 data-i18n="i3.t">Personal finance</h3><p data-i18n="i3.d">Budgets, debt plans and clear yearly results for families.</p></div>
+        <div class="ind"><h3 data-i18n="i4.t">Small and local businesses</h3><p data-i18n="i4.d">Websites, automations and AI assistants that save hours each week.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="process" aria-labelledby="procTitle">
+    <div class="wrap">
+      <div class="head">
+        <div class="eyebrow" data-i18n="proc.eyebrow">How we work</div>
+        <h2 id="procTitle" data-i18n="proc.title">From idea to software in use</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">01</div><h3 data-i18n="st1.t">Discover</h3><p data-i18n="st1.d">We learn how your business really runs and write the problem down in plain words.</p></div>
+        <div class="step"><div class="n">02</div><h3 data-i18n="st2.t">Prototype</h3><p data-i18n="st2.d">You get a working prototype early, so decisions come from using it, not imagining it.</p></div>
+        <div class="step"><div class="n">03</div><h3 data-i18n="st3.t">Build</h3><p data-i18n="st3.d">We build, test and deliver in short cycles, with your feedback in every round.</p></div>
+        <div class="step"><div class="n">04</div><h3 data-i18n="st4.t">Support</h3><p data-i18n="st4.d">After launch we monitor, fix and improve, so the software keeps up as your business changes.</p></div>
+      </div>
+
+      <div class="head" style="margin-top:88px">
+        <div class="eyebrow" data-i18n="pr.eyebrow">Principles</div>
+        <h2 data-i18n="pr.title">What we stand for</h2>
+      </div>
+      <div class="prins">
+        <div class="prin">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EE6D6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"></path></svg><span data-i18n="pr1.t">People make the final call</span></h3>
+          <p data-i18n="pr1.d">AI suggests and people decide. In industrial systems, nothing is written to a machine without an engineer's approval.</p>
+        </div>
+        <div class="prin">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EE6D6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span data-i18n="pr2.t">Your data stays yours</span></h3>
+          <p data-i18n="pr2.d">We collect only what a feature needs. Private data such as photos is shared only with explicit permission.</p>
+        </div>
+        <div class="prin">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EE6D6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8.5a15 15 0 0 1 20 0"></path><path d="M5.5 12a10 10 0 0 1 13 0"></path><path d="M9 15.5a5 5 0 0 1 6 0"></path><path d="M3 3l18 18"></path></svg><span data-i18n="pr3.t">Works where you work</span></h3>
+          <p data-i18n="pr3.d">Offline-first apps for factory floors, rental houses and job sites where the signal drops.</p>
+        </div>
+        <div class="prin">
+          <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2EE6D6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"></path></svg><span data-i18n="pr4.t">Three languages from day one</span></h3>
+          <p data-i18n="pr4.d">English, Portuguese and Spanish, so everyone on your team can use what we build.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="about" aria-labelledby="aboutTitle">
+    <div class="wrap about">
+      <div class="relu">
+        <div class="fx">ReLU(x) = <b>max(0, x)</b></div>
+        <svg viewBox="0 0 320 170" role="img" aria-label="Graph of the ReLU function: flat at zero for negative values, rising for positive values">
+          <line x1="20" y1="140" x2="300" y2="140" stroke="#17302F" stroke-width="1.5"></line>
+          <line x1="160" y1="15" x2="160" y2="155" stroke="#17302F" stroke-width="1.5"></line>
+          <polyline points="20,140 160,140 290,20" fill="none" stroke="#2EE6D6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          <circle cx="160" cy="140" r="4.5" fill="#E6F4F2"></circle>
+          <text x="24" y="160" fill="#5E7F7B" font-family="IBM Plex Mono, monospace" font-size="11">x &lt; 0 → 0</text>
+          <text x="214" y="160" fill="#5E7F7B" font-family="IBM Plex Mono, monospace" font-size="11">x &gt; 0 → x</text>
+        </svg>
+        <div class="cap" data-i18n="ab.cap">ReLU, the activation function at the heart of modern neural networks.</div>
+      </div>
+      <div class="copy">
+        <div class="eyebrow" data-i18n="ab.eyebrow">About</div>
+        <h2 id="aboutTitle" style="font-size:clamp(28px,3.6vw,42px);font-weight:700;letter-spacing:-.015em" data-i18n="ab.title">A technology company built for real operations</h2>
+        <p data-i18n="ab.p1">ReluhSC was founded in South Carolina by Ricardo (Rick) Souza. We build software for the places where work actually happens: the factory floor, the rental house between guests and the family budget at the end of the month.</p>
+        <p data-i18n="ab.p2">The name carries a nod to our field. ReLU is the function that lets a neural network keep what matters and drop the noise. We try to build software the same way.</p>
+        <div class="mission">
+          <div class="k" data-i18n="ab.mk">Mission</div>
+          <div class="v">Innovating the future with AI.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="contact" aria-labelledby="ctTitle">
+    <div class="wrap contact">
+      <div class="info">
+        <div class="eyebrow" data-i18n="ct.eyebrow">Contact</div>
+        <h2 id="ctTitle" style="font-size:clamp(28px,3.6vw,42px);font-weight:700;letter-spacing:-.015em" data-i18n="ct.title">Let's build something useful</h2>
+        <p class="lead" data-i18n="ct.lead">Tell us about your project. We reply in English, Portuguese or Spanish.</p>
+        <div class="mail">
+          <span class="k" data-i18n="ct.mailk">Email</span>
+          <span class="v" id="mailAddr">hello@reluhsc.com</span>
+          <button class="mini" type="button" id="copyMail" data-i18n="ct.copyMail">Copy address</button>
+        </div>
+      </div>
+      <form id="contactForm" novalidate>
+        <div class="field"><label for="f-name" data-i18n="f.name">Name</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="f-email" data-i18n="f.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-company" data-i18n="f.company">Company (optional)</label><input id="f-company" name="company" autocomplete="organization"></div>
+        <div class="field"><label for="f-topic" data-i18n="f.topic">I'm interested in</label>
+          <select id="f-topic" name="topic">
+            <option value="app" data-i18n="f.o1">A custom app</option>
+            <option value="ai" data-i18n="f.o2">An AI agent or automation</option>
+            <option value="industrial" data-i18n="f.o3">Industrial AI</option>
+            <option value="web" data-i18n="f.o4">A website</option>
+            <option value="other" data-i18n="f.o5">Something else</option>
+          </select>
+        </div>
+        <div class="field full"><label for="f-msg" data-i18n="f.msg">Your project</label><textarea id="f-msg" name="message" required></textarea></div>
+        <div class="form-foot">
+          <button class="btn primary" type="submit" data-i18n="f.submit">Prepare message</button>
+          <span id="formErr" style="color:var(--warn);font-size:14px" hidden data-i18n="f.err">Please fill in your name, a valid email and your project.</span>
+        </div>
+        <div class="result" id="formResult" hidden>
+          <p data-i18n="f.ok">Your message is ready. Copy it and send it to hello@reluhsc.com.</p>
+          <pre id="formPreview"></pre>
+          <div><button class="mini" type="button" id="copyMsg" style="margin-left:0" data-i18n="f.copy">Copy message</button></div>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div>
+        <a class="brand" href="#top" aria-label="ReluhSC home">
+          <svg width="30" height="30" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#2EE6D6" stroke-width="5"></circle><ellipse cx="50" cy="50" rx="20" ry="42" fill="none" stroke="#2EE6D6" stroke-width="3.5" opacity=".7"></ellipse><circle cx="50" cy="50" r="11" fill="#E6FFFC"></circle></svg>
+          <span class="wordmark">RELUH<b>SC</b></span>
+        </a>
+        <div class="tagline">Innovating the Future with AI</div>
+      </div>
+      <nav aria-label="Footer">
+        <a href="#services" data-i18n="nav.services">Services</a>
+        <a href="#products" data-i18n="nav.products">Products</a>
+        <a href="#process" data-i18n="nav.process">How we work</a>
+        <a href="#about" data-i18n="nav.about">About</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+    </div>
+    <div class="legal">
+      <span data-i18n="ft.rights">© 2026 ReluhSC · South Carolina, USA</span>
+      <span data-i18n="ft.tm">Siemens and TIA Portal are trademarks of Siemens AG. ReluhSC is an independent company and is not affiliated with or endorsed by Siemens.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var T = {
+    pt: {
+      "nav.services":"Serviços","nav.products":"Produtos","nav.process":"Como trabalhamos","nav.about":"Sobre","nav.contact":"Contato","nav.cta":"Iniciar projeto",
+      "hero.eyebrow":"Software · Inteligência artificial · Automação industrial",
+      "hero.t1":"Software que pensa.","hero.t2":"Máquinas que avisam do que precisam.",
+      "hero.sub":"A ReluhSC cria apps, agentes de IA e IA industrial para empresas que querem trabalhar de forma mais inteligente. Feito na Carolina do Sul, entregue em inglês, português e espanhol.",
+      "hero.cta1":"Iniciar um projeto","hero.cta2":"Ver nossos produtos","hero.m1":"Fundada em 2026","hero.m2":"Carolina do Sul, EUA",
+      "stack.label":"Construído com","stack.llm":"Modelos de linguagem",
+      "svc.eyebrow":"O que fazemos","svc.title":"Quatro formas de fazer sua empresa funcionar melhor",
+      "s1.t":"Apps sob medida","s1.d":"Apps mobile e web para sua equipe e seus clientes, pensados para continuar funcionando offline em campo.",
+      "s2.t":"Agentes de IA e automação","s2.d":"Assistentes que leem seus documentos, preenchem suas planilhas e cuidam do trabalho repetitivo, conectados às ferramentas que você já usa.",
+      "s3.t":"IA industrial","s3.d":"IA para engenheiros de automação: apoio na programação de CLPs, dados via OPC UA e detecção de anomalias que avisa antes de a máquina parar.",
+      "s4.t":"Sites e marca","s4.d":"Sites rápidos em três idiomas e uma identidade visual que mostra a seriedade da sua empresa.",
+      "prod.eyebrow":"Produtos","prod.title":"O que estamos construindo","prod.lead":"Produtos próprios, construídos à vista de todos. Cada etiqueta mostra em que fase o produto está hoje.",
+      "st.dev":"Em desenvolvimento","st.proto":"Protótipo","st.soon":"Em breve","st.research":"Pesquisa",
+      "p1.k":"App de finanças pessoais · Android","p1.d":"Orçamento, dívidas, metas de economia e patrimônio em um só lugar. No fim do ano, a Retrospectiva Financeira mostra se você fechou no verde.",
+      "p1.f1":"Controle de orçamento e gastos","p1.f2":"Plano para quitar dívidas e metas de economia","p1.f3":"Retrospectiva Financeira do ano","p1.f4":"Tema claro, escuro ou do sistema",
+      "ph.k1":"Saldo do mês","ph.k2":"Gastos por mês","ph.k3":"Retrospectiva Financeira","ph.v3":"Ano fechado no verde","ph.note":"Prévia ilustrativa",
+      "p2.k":"Assistente de IA para Siemens TIA Portal","p2.d":"Um agente de IA que trabalha via TIA Portal Openness para ajudar engenheiros a escrever, revisar e documentar programas de CLP. Cada alteração é testada no PLCSIM antes de chegar ao equipamento real.",
+      "p2.f1":"Geração e revisão de código de CLP","p2.f2":"Documentação automática do projeto","p2.f3":"O engenheiro aprova cada alteração",
+      "p3.k":"Monitoramento de máquinas via OPC UA","p3.d":"Lê dados das máquinas em tempo real via OPC UA e sinaliza temperaturas, pressões e tempos de ciclo fora do normal antes que virem parada de produção.",
+      "p3.f1":"Conexão OPC UA em tempo real","p3.f2":"Aprende o que é normal para cada máquina","p3.f3":"Alertas que explicam o motivo",
+      "p4.k":"Limpeza e inventário para imóveis de temporada","p4.d":"Um app de checklist e inventário para equipes de limpeza que cuidam de imóveis de aluguel por temporada.",
+      "p4.f1":"Checklist editável para cada imóvel","p4.f2":"Funciona offline","p4.f3":"Fotos compartilhadas só com autorização do dono","p4.f4":"Estoque marcado como Alto, Médio ou Baixo",
+      "p5.t":"Comando Financeiro","p5.k":"Modelo de planilha · EN / PT / ES","p5.d":"Uma planilha completa de finanças pessoais com orçamento, plano para quitar dívidas, metas e patrimônio. O ponto de partida que virou o Kofre.",
+      "p5.f1":"Orçamento mensal e categorias de gastos","p5.f2":"Operação Dívida Zero","p5.f3":"Escolha do idioma na primeira aba",
+      "lab.t":"Assistente de voz privado","lab.d":"Um assistente de voz que roda inteiro no computador, fala português do Brasil e acorda com duas palmas. Sem depender da nuvem.",
+      "ind.eyebrow":"Setores","ind.title":"Onde nosso software trabalha",
+      "i1.t":"Indústria e automação","i1.d":"Programação de CLPs, dados de máquinas e manutenção preditiva.",
+      "i2.t":"Hospitalidade e temporada","i2.d":"Checklists de limpeza, inventário e troca entre hóspedes.",
+      "i3.t":"Finanças pessoais","i3.d":"Orçamento, plano de dívidas e resultado anual claro para famílias.",
+      "i4.t":"Pequenas empresas locais","i4.d":"Sites, automações e assistentes de IA que economizam horas toda semana.",
+      "proc.eyebrow":"Como trabalhamos","proc.title":"Da ideia ao software em uso",
+      "st1.t":"Descobrir","st1.d":"Entendemos como sua empresa realmente funciona e escrevemos o problema em palavras simples.",
+      "st2.t":"Prototipar","st2.d":"Você recebe um protótipo funcionando logo no início, e as decisões vêm do uso, não da imaginação.",
+      "st3.t":"Construir","st3.d":"Construímos, testamos e entregamos em ciclos curtos, com o seu retorno em cada rodada.",
+      "st4.t":"Suporte","st4.d":"Depois do lançamento, monitoramos, corrigimos e melhoramos, para o software acompanhar as mudanças da sua empresa.",
+      "pr.eyebrow":"Princípios","pr.title":"No que acreditamos",
+      "pr1.t":"Pessoas dão a palavra final","pr1.d":"A IA sugere e as pessoas decidem. Em sistemas industriais, nada é gravado numa máquina sem a aprovação de um engenheiro.",
+      "pr2.t":"Seus dados continuam seus","pr2.d":"Coletamos só o que cada função precisa. Dados privados, como fotos, só são compartilhados com permissão explícita.",
+      "pr3.t":"Funciona onde você trabalha","pr3.d":"Apps que funcionam offline no chão de fábrica, nas casas de temporada e nas obras onde o sinal cai.",
+      "pr4.t":"Três idiomas desde o primeiro dia","pr4.d":"Inglês, português e espanhol, para todos da sua equipe usarem o que construímos.",
+      "ab.cap":"ReLU, a função de ativação no coração das redes neurais modernas.","ab.eyebrow":"Sobre","ab.title":"Uma empresa de tecnologia feita para operações reais",
+      "ab.p1":"A ReluhSC foi fundada na Carolina do Sul por Ricardo (Rick) Souza. Criamos software para os lugares onde o trabalho acontece de verdade: o chão de fábrica, a casa de temporada entre um hóspede e outro e o orçamento da família no fim do mês.",
+      "ab.p2":"O nome traz uma referência à nossa área. ReLU é a função que permite a uma rede neural ficar com o que importa e descartar o ruído. Tentamos construir software do mesmo jeito.",
+      "ab.mk":"Missão",
+      "ct.eyebrow":"Contato","ct.title":"Vamos construir algo útil","ct.lead":"Conte sobre o seu projeto. Respondemos em inglês, português ou espanhol.","ct.mailk":"E-mail","ct.copyMail":"Copiar endereço",
+      "f.name":"Nome","f.email":"E-mail","f.company":"Empresa (opcional)","f.topic":"Tenho interesse em","f.o1":"Um app sob medida","f.o2":"Um agente de IA ou automação","f.o3":"IA industrial","f.o4":"Um site","f.o5":"Outra coisa","f.msg":"Seu projeto",
+      "f.submit":"Preparar mensagem","f.err":"Preencha seu nome, um e-mail válido e o seu projeto.","f.ok":"Sua mensagem está pronta. Copie e envie para hello@reluhsc.com.","f.copy":"Copiar mensagem","f.copied":"Copiado","f.copyFail":"Selecione o texto e copie",
+      "ft.rights":"© 2026 ReluhSC · Carolina do Sul, EUA","ft.tm":"Siemens e TIA Portal são marcas da Siemens AG. A ReluhSC é uma empresa independente, sem afiliação ou endosso da Siemens."
+    },
+    es: {
+      "nav.services":"Servicios","nav.products":"Productos","nav.process":"Cómo trabajamos","nav.about":"Nosotros","nav.contact":"Contacto","nav.cta":"Iniciar proyecto",
+      "hero.eyebrow":"Software · Inteligencia artificial · Automatización industrial",
+      "hero.t1":"Software que piensa.","hero.t2":"Máquinas que te dicen lo que necesitan.",
+      "hero.sub":"ReluhSC crea apps, agentes de IA e IA industrial para empresas que quieren trabajar de forma más inteligente. Hecho en Carolina del Sur, entregado en inglés, portugués y español.",
+      "hero.cta1":"Iniciar un proyecto","hero.cta2":"Ver nuestros productos","hero.m1":"Fundada en 2026","hero.m2":"Carolina del Sur, EE. UU.",
+      "stack.label":"Construido con","stack.llm":"Modelos de lenguaje",
+      "svc.eyebrow":"Qué hacemos","svc.title":"Cuatro formas de que tu empresa funcione mejor",
+      "s1.t":"Apps a medida","s1.d":"Apps móviles y web para tu equipo y tus clientes, pensadas para seguir funcionando sin conexión en el campo.",
+      "s2.t":"Agentes de IA y automatización","s2.d":"Asistentes que leen tus documentos, llenan tus hojas de cálculo y se encargan del trabajo repetitivo, conectados a las herramientas que ya usas.",
+      "s3.t":"IA industrial","s3.d":"IA para ingenieros de automatización: apoyo en la programación de PLC, datos vía OPC UA y detección de anomalías que avisa antes de que una máquina se detenga.",
+      "s4.t":"Sitios web y marca","s4.d":"Sitios web rápidos en tres idiomas y una identidad visual que muestra lo seria que es tu empresa.",
+      "prod.eyebrow":"Productos","prod.title":"Lo que estamos construyendo","prod.lead":"Productos propios, construidos a la vista de todos. Cada etiqueta muestra en qué fase está el producto hoy.",
+      "st.dev":"En desarrollo","st.proto":"Prototipo","st.soon":"Próximamente","st.research":"Investigación",
+      "p1.k":"App de finanzas personales · Android","p1.d":"Presupuesto, deudas, metas de ahorro y patrimonio en un solo lugar. Al final del año, la Retrospectiva Financiera muestra si cerraste en verde.",
+      "p1.f1":"Control de presupuesto y gastos","p1.f2":"Plan para pagar deudas y metas de ahorro","p1.f3":"Retrospectiva Financiera del año","p1.f4":"Tema claro, oscuro o del sistema",
+      "ph.k1":"Saldo del mes","ph.k2":"Gastos por mes","ph.k3":"Retrospectiva Financiera","ph.v3":"Año cerrado en verde","ph.note":"Vista previa ilustrativa",
+      "p2.k":"Asistente de IA para Siemens TIA Portal","p2.d":"Un agente de IA que trabaja mediante TIA Portal Openness para ayudar a los ingenieros a escribir, revisar y documentar programas de PLC. Cada cambio se prueba en PLCSIM antes de llegar al equipo real.",
+      "p2.f1":"Generación y revisión de código PLC","p2.f2":"Documentación automática del proyecto","p2.f3":"El ingeniero aprueba cada cambio",
+      "p3.k":"Monitoreo de máquinas vía OPC UA","p3.d":"Lee datos de las máquinas en tiempo real vía OPC UA y señala temperaturas, presiones y tiempos de ciclo fuera de lo normal antes de que se conviertan en paradas.",
+      "p3.f1":"Conexión OPC UA en tiempo real","p3.f2":"Aprende lo que es normal para cada máquina","p3.f3":"Alertas que explican el motivo",
+      "p4.k":"Limpieza e inventario para alquileres vacacionales","p4.d":"Una app de checklist e inventario para equipos de limpieza que cuidan propiedades de alquiler de corta estancia.",
+      "p4.f1":"Checklist editable para cada propiedad","p4.f2":"Funciona sin conexión","p4.f3":"Fotos compartidas solo con la aprobación del dueño","p4.f4":"Inventario marcado como Alto, Medio o Bajo",
+      "p5.t":"Comando Financiero","p5.k":"Plantilla de hoja de cálculo · EN / PT / ES","p5.d":"Una hoja de cálculo completa de finanzas personales con presupuesto, plan para pagar deudas, metas y patrimonio. El punto de partida que se convirtió en Kofre.",
+      "p5.f1":"Presupuesto mensual y categorías de gasto","p5.f2":"Plan Deuda Cero","p5.f3":"Elige el idioma en la primera hoja",
+      "lab.t":"Asistente de voz privado","lab.d":"Un asistente de voz que funciona por completo en una computadora local, habla portugués de Brasil y se activa con dos aplausos. Sin depender de la nube.",
+      "ind.eyebrow":"Sectores","ind.title":"Dónde trabaja nuestro software",
+      "i1.t":"Industria y automatización","i1.d":"Programación de PLC, datos de máquinas y mantenimiento predictivo.",
+      "i2.t":"Hospitalidad y alquileres","i2.d":"Checklists de limpieza, inventario y cambio entre huéspedes.",
+      "i3.t":"Finanzas personales","i3.d":"Presupuesto, plan de deudas y resultados anuales claros para familias.",
+      "i4.t":"Pequeños negocios locales","i4.d":"Sitios web, automatizaciones y asistentes de IA que ahorran horas cada semana.",
+      "proc.eyebrow":"Cómo trabajamos","proc.title":"De la idea al software en uso",
+      "st1.t":"Descubrir","st1.d":"Entendemos cómo funciona realmente tu empresa y escribimos el problema en palabras simples.",
+      "st2.t":"Prototipar","st2.d":"Recibes un prototipo funcional desde el principio, así las decisiones salen del uso y no de la imaginación.",
+      "st3.t":"Construir","st3.d":"Construimos, probamos y entregamos en ciclos cortos, con tus comentarios en cada ronda.",
+      "st4.t":"Soporte","st4.d":"Después del lanzamiento monitoreamos, corregimos y mejoramos, para que el software acompañe los cambios de tu empresa.",
+      "pr.eyebrow":"Principios","pr.title":"En qué creemos",
+      "pr1.t":"Las personas tienen la última palabra","pr1.d":"La IA sugiere y las personas deciden. En sistemas industriales, nada se escribe en una máquina sin la aprobación de un ingeniero.",
+      "pr2.t":"Tus datos siguen siendo tuyos","pr2.d":"Recopilamos solo lo que cada función necesita. Los datos privados, como las fotos, solo se comparten con permiso explícito.",
+      "pr3.t":"Funciona donde trabajas","pr3.d":"Apps que funcionan sin conexión en la planta, en las casas de alquiler y en las obras donde se pierde la señal.",
+      "pr4.t":"Tres idiomas desde el primer día","pr4.d":"Inglés, portugués y español, para que todo tu equipo pueda usar lo que construimos.",
+      "ab.cap":"ReLU, la función de activación en el corazón de las redes neuronales modernas.","ab.eyebrow":"Nosotros","ab.title":"Una empresa de tecnología hecha para operaciones reales",
+      "ab.p1":"ReluhSC fue fundada en Carolina del Sur por Ricardo (Rick) Souza. Creamos software para los lugares donde el trabajo realmente ocurre: la planta de producción, la casa de alquiler entre huéspedes y el presupuesto familiar a fin de mes.",
+      "ab.p2":"El nombre hace un guiño a nuestro campo. ReLU es la función que permite a una red neuronal quedarse con lo importante y descartar el ruido. Intentamos construir software de la misma manera.",
+      "ab.mk":"Misión",
+      "ct.eyebrow":"Contacto","ct.title":"Construyamos algo útil","ct.lead":"Cuéntanos sobre tu proyecto. Respondemos en inglés, portugués o español.","ct.mailk":"Correo","ct.copyMail":"Copiar dirección",
+      "f.name":"Nombre","f.email":"Correo","f.company":"Empresa (opcional)","f.topic":"Me interesa","f.o1":"Una app a medida","f.o2":"Un agente de IA o automatización","f.o3":"IA industrial","f.o4":"Un sitio web","f.o5":"Otra cosa","f.msg":"Tu proyecto",
+      "f.submit":"Preparar mensaje","f.err":"Completa tu nombre, un correo válido y tu proyecto.","f.ok":"Tu mensaje está listo. Cópialo y envíalo a hello@reluhsc.com.","f.copy":"Copiar mensaje","f.copied":"Copiado","f.copyFail":"Selecciona el texto y cópialo",
+      "ft.rights":"© 2026 ReluhSC · Carolina del Sur, EE. UU.","ft.tm":"Siemens y TIA Portal son marcas de Siemens AG. ReluhSC es una empresa independiente, sin afiliación ni respaldo de Siemens."
+    }
+  };
+  T.en = {};
+  var nodes = document.querySelectorAll('[data-i18n]');
+  nodes.forEach(function(n){ T.en[n.getAttribute('data-i18n')] = n.textContent; });
+  T.en["f.copied"]="Copied"; T.en["f.copyFail"]="Select the text and copy it";
+  var lang = 'en';
+  function t(k){ return (T[lang] && T[lang][k]) || T.en[k] || k; }
+  function apply(l){
+    lang = T[l] ? l : 'en';
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+    nodes.forEach(function(n){ var k=n.getAttribute('data-i18n'); var v=(T[lang]&&T[lang][k])||T.en[k]; if(v) n.textContent=v; });
+    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-lang')===lang)); });
+    try{ localStorage.setItem('reluhsc-lang', lang); }catch(e){}
+  }
+  var saved=null; try{ saved=localStorage.getItem('reluhsc-lang'); }catch(e){}
+  if(!saved){ var nl=(navigator.language||'en').slice(0,2); if(nl==='pt'||nl==='es') saved=nl; }
+  apply(saved||'en');
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); }); });
+
+  var mb=document.getElementById('menuBtn'), mn=document.getElementById('mobileNav');
+  mb.addEventListener('click', function(){ var open=mn.hidden; mn.hidden=!open; mb.setAttribute('aria-expanded', String(open)); });
+  mn.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ mn.hidden=true; mb.setAttribute('aria-expanded','false'); }); });
+
+  function copyText(text, btn, fallbackEl){
+    var orig = btn.textContent;
+    function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = orig; }, 1800); }
+    function fallback(){ if(fallbackEl){ var r=document.createRange(); r.selectNodeContents(fallbackEl); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); } done(t('f.copyFail')); }
+    try{ navigator.clipboard.writeText(text).then(function(){ done(t('f.copied')); }, fallback); }catch(e){ fallback(); }
+  }
+  var mailEl=document.getElementById('mailAddr');
+  document.getElementById('copyMail').addEventListener('click', function(){ copyText(mailEl.textContent, this, mailEl); });
+
+  var form=document.getElementById('contactForm'), err=document.getElementById('formErr'), res=document.getElementById('formResult'), pre=document.getElementById('formPreview');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name=form.name.value.trim(), email=form.email.value.trim(), msg=form.message.value.trim();
+    var ok = name && msg && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    err.hidden = !!ok;
+    if(!ok){ res.hidden=true; return; }
+    var topic=form.topic.options[form.topic.selectedIndex].textContent;
+    var company=form.company.value.trim();
+    pre.textContent = 'To: hello@reluhsc.com\n' + 'From: ' + name + ' <' + email + '>' + (company ? ' · ' + company : '') + '\n' + topic + '\n\n' + msg;
+    res.hidden=false;
+  });
+  document.getElementById('copyMsg').addEventListener('click', function(){ copyText(pre.textContent, this, pre); });
+
+  // Holographic globe
+  var cv=document.getElementById('globe'), ctx=cv.getContext('2d');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W=0,H=0,dpr=1;
+  function size(){ dpr=Math.min(window.devicePixelRatio||1,2); var r=cv.getBoundingClientRect(); W=Math.max(1,r.width); H=Math.max(1,r.height); cv.width=W*dpr; cv.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+  size(); window.addEventListener('resize', function(){ size(); if(reduce) draw(0.6); });
+  var tilt=0.38, pts=[];
+  for(var i=0;i<70;i++){ pts.push({lat:(Math.random()-.5)*Math.PI*.9, lon:Math.random()*Math.PI*2}); }
+  function proj(lat,lon,rot,R,cx,cy){
+    var x=Math.cos(lat)*Math.sin(lon+rot), y=Math.sin(lat), z=Math.cos(lat)*Math.cos(lon+rot);
+    var y2=y*Math.cos(tilt)-z*Math.sin(tilt), z2=y*Math.sin(tilt)+z*Math.cos(tilt);
+    return {x:cx+x*R, y:cy-y2*R, z:z2};
+  }
+  function draw(time){
+    var rot=time*0.18, bob=reduce?0:Math.sin(time*1.4)*6;
+    var cx=W/2, cy=H/2-4+bob, R=Math.min(W,H)*0.36;
+    ctx.clearRect(0,0,W,H);
+    var sh=ctx.createRadialGradient(W/2,H*0.93,2,W/2,H*0.93,R*0.8);
+    sh.addColorStop(0,'rgba(46,230,214,'+(0.32-bob*0.01)+')'); sh.addColorStop(1,'rgba(46,230,214,0)');
+    ctx.fillStyle=sh; ctx.beginPath(); ctx.ellipse(W/2,H*0.93,R*0.8,R*0.1,0,0,Math.PI*2); ctx.fill();
+    var g=ctx.createRadialGradient(cx,cy,R*0.1,cx,cy,R*1.25);
+    g.addColorStop(0,'rgba(46,230,214,0.10)'); g.addColorStop(0.75,'rgba(46,230,214,0.05)'); g.addColorStop(1,'rgba(46,230,214,0)');
+    ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,R*1.25,0,Math.PI*2); ctx.fill();
+    ctx.lineWidth=1;
+    function line(fn,steps){ var prev=null; for(var s=0;s<=steps;s++){ var p=fn(s/steps); if(prev){ ctx.strokeStyle='rgba(46,230,214,'+(p.z>0?0.55:0.13)+')'; ctx.beginPath(); ctx.moveTo(prev.x,prev.y); ctx.lineTo(p.x,p.y); ctx.stroke(); } prev=p; } }
+    for(var la=-60;la<=60;la+=30){ (function(lat){ line(function(u){ return proj(lat,u*Math.PI*2,rot,R,cx,cy); },72); })(la*Math.PI/180); }
+    for(var m=0;m<12;m++){ (function(lon){ line(function(u){ return proj(-Math.PI/2+u*Math.PI,lon,rot,R,cx,cy); },48); })(m*Math.PI/6); }
+    pts.forEach(function(p){ var q=proj(p.lat,p.lon,rot,R,cx,cy); if(q.z>0){ ctx.fillStyle='rgba(230,255,252,'+(0.35+q.z*0.6)+')'; ctx.beginPath(); ctx.arc(q.x,q.y,1.3+q.z*1.1,0,Math.PI*2); ctx.fill(); } });
+    ctx.strokeStyle='rgba(46,230,214,0.9)'; ctx.lineWidth=1.6; ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.stroke();
+    var pulse=reduce?1:0.85+Math.sin(time*2.6)*0.15;
+    var c=ctx.createRadialGradient(cx,cy,0,cx,cy,R*0.42*pulse);
+    c.addColorStop(0,'rgba(255,255,255,0.95)'); c.addColorStop(0.3,'rgba(46,230,214,0.75)'); c.addColorStop(1,'rgba(46,230,214,0)');
+    ctx.fillStyle=c; ctx.beginPath(); ctx.arc(cx,cy,R*0.42*pulse,0,Math.PI*2); ctx.fill();
+    var s=R*0.13; ctx.fillStyle='#FFFFFF'; ctx.beginPath();
+    ctx.moveTo(cx,cy-s); ctx.lineTo(cx+s*0.24,cy-s*0.24); ctx.lineTo(cx+s,cy); ctx.lineTo(cx+s*0.24,cy+s*0.24); ctx.lineTo(cx,cy+s); ctx.lineTo(cx-s*0.24,cy+s*0.24); ctx.lineTo(cx-s,cy); ctx.lineTo(cx-s*0.24,cy-s*0.24); ctx.closePath(); ctx.fill();
+  }
+  if(reduce){ draw(0.6); }
+  else { var t0=performance.now(); (function loop(now){ draw((now-t0)/1000+0.6); requestAnimationFrame(loop); })(t0); }
+})();
+</script>
+</body>
+</html>
