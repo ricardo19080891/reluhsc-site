@@ -334,7 +334,10 @@ const state = { salon: null, selected: new Set(), day: null, slot: null, sent: n
 const t = (k) => T[lang][k];
 const money = (v) => {
   const n = Math.round(v * 100) / 100;
-  return '$ ' + (Number.isInteger(n) ? n.toLocaleString('en-US') : n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+  const brl = state.salon && state.salon.currency === 'BRL';
+  const loc = brl ? 'pt-BR' : 'en-US';
+  const opts = Number.isInteger(n) ? {} : { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+  return (brl ? 'R$ ' : '$ ') + n.toLocaleString(loc, opts);
 };
 const dur = (m) => (m < 60 ? m + t('min') : Math.floor(m / 60) + 'h' + (m % 60 ? String(m % 60).padStart(2, '0') : ''));
 const timeLabel = (d) => d.toLocaleTimeString(LOCALES[lang], { hour: 'numeric', minute: '2-digit' });
