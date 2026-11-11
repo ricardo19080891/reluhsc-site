@@ -326,6 +326,9 @@ function renderAtelier() {
   document.title = a.name + ' · Coser';
 }
 
+/** Nome do serviço no idioma escolhido (se a costureira cadastrou a tradução). */
+const svcName = (s) => (st.lang !== 'pt' && s['name_' + st.lang]) || s.name;
+
 function renderServices() {
   const groups = {};
   for (const s of st.at.services) (groups[s.category] ||= []).push(s);
@@ -336,7 +339,7 @@ function renderServices() {
       <label class="svc">
         <input type="checkbox" data-id="${esc(s.id)}" ${st.sel.has(s.id) ? 'checked' : ''}>
         <span class="box" aria-hidden="true"></span>
-        <span class="name">${esc(s.name)}</span>
+        <span class="name">${esc(svcName(s))}</span>
         ${Number(s.price) > 0 ? `<span class="price">${money(Number(s.price))}</span>` : `<span class="price quote">${esc(t('quote'))}</span>`}
       </label>`).join('')}
     </div>`).join('');
