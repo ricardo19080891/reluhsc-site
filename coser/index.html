@@ -243,6 +243,7 @@ const T = {
     doneWa: 'Falar com o ateliê', waMsg: 'Olá! Acabei de enviar o pedido nº {n} pelo link.',
     notFound: 'Ateliê não encontrado. Confira o link que você recebeu.', loadErr: 'Não deu para carregar agora. Tente de novo em instantes.',
     needSvc: 'Escolha pelo menos um serviço ou descreva um.', needName: 'Coloque seu nome.', needPhone: 'Coloque um WhatsApp válido.',
+    changed: 'O ateliê acabou de atualizar a tabela de serviços. Confira os itens e valores e envie de novo.',
     needSlot: 'Escolha o dia e o horário, ou marque "Agora não".', tooMany: 'Você já enviou vários pedidos hoje. Fale direto com o ateliê.',
     sendErr: 'Não foi possível enviar. Tente de novo.', demo: 'Exemplo · nada é enviado',
     g_repair: 'Consertos', g_adjustment: 'Ajustes', g_custom: 'Sob medida', g_other: 'Outros',
@@ -277,6 +278,7 @@ const T = {
     doneWa: 'Message the studio', waMsg: 'Hi! I just sent request #{n} through the link.',
     notFound: 'Studio not found. Please check the link you received.', loadErr: "Couldn't load right now. Try again in a moment.",
     needSvc: 'Pick at least one service or describe one.', needName: 'Enter your name.', needPhone: 'Enter a valid phone number.',
+    changed: 'The studio just updated its services. Please review the items and prices and send again.',
     needSlot: 'Choose a day and time, or select "Not now".', tooMany: "You've already sent several requests today. Please contact the studio directly.",
     sendErr: "Couldn't send. Please try again.", demo: 'Sample · nothing is sent',
     g_repair: 'Repairs', g_adjustment: 'Alterations', g_custom: 'Custom-made', g_other: 'Other',
@@ -311,6 +313,7 @@ const T = {
     doneWa: 'Hablar con el taller', waMsg: '¡Hola! Acabo de enviar el pedido nº {n} por el link.',
     notFound: 'Taller no encontrado. Revisa el link que recibiste.', loadErr: 'No se pudo cargar ahora. Intenta de nuevo en un momento.',
     needSvc: 'Elige al menos un servicio o describe uno.', needName: 'Escribe tu nombre.', needPhone: 'Escribe un WhatsApp válido.',
+    changed: 'El taller acaba de actualizar sus servicios. Revisa los ítems y precios y envía de nuevo.',
     needSlot: 'Elige el día y el horario, o marca "Ahora no".', tooMany: 'Ya enviaste varios pedidos hoy. Habla directo con el taller.',
     sendErr: 'No se pudo enviar. Intenta de nuevo.', demo: 'Ejemplo · no se envía nada',
     g_repair: 'Arreglos', g_adjustment: 'Ajustes', g_custom: 'A medida', g_other: 'Otros',
@@ -507,6 +510,40 @@ function renderDone(num) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ---------- Tabela sempre atualizada ----------
+// Busca de novo os serviços e horários do ateliê. Mantém o que a cliente marcou
+// (menos serviços removidos). Retorna true se algo que ela marcou mudou.
+async function refreshAtelier() {
+  if (isDemo || !slug || !st.at) return false;
+  const fresh = await rpc('public_atelier', { p_slug: slug });
+  if (!fresh) return false;
+  const before = new Map(st.at.services.map((x) => [x.id, Number(x.price)]));
+  const now = new Map(fresh.services.map((x) => [x.id, Number(x.price)]));
+  let changed = false;
+  for (const id of [...st.sel]) {
+    if (!now.has(id)) { st.sel.delete(id); changed = true; }
+    else if (now.get(id) !== before.get(id)) changed = true;
+  }
+  const sameList = before.size === now.size && [...now].every(([k, v]) => before.get(k) === v)
+    && JSON.stringify(st.at.services.map((x) => x.name + x.category + (x.name_en || '') + (x.name_es || '')))
+       === JSON.stringify(fresh.services.map((x) => x.name + x.category + (x.name_en || '') + (x.name_es || '')));
+  st.at = fresh;
+  if (!sameList || JSON.stringify(st.at.busy) !== JSON.stringify(fresh.busy)) {
+    renderServices(); renderBar();
+    if (st.kind !== 'none') { renderDays(); renderSlots(); }
+  }
+  return changed;
+}
+let lastRefresh = Date.now();
+async function softRefresh() {
+  if (Date.now() - lastRefresh < 15000 || st.sending || $('form').hidden) return;
+  lastRefresh = Date.now();
+  try { await refreshAtelier(); } catch (_) {}
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden) softRefresh(); });
+window.addEventListener('focus', softRefresh);
+setInterval(softRefresh, 60000);
+
 async function submit() {
   $('err').hidden = true;
   const v = valid();
@@ -514,6 +551,12 @@ async function submit() {
   if (isDemo) return renderDone(123);
   st.sending = true; renderBar();
   try {
+    // Confere a tabela na hora de enviar: se o ateliê mudou algo marcado, mostra antes de enviar
+    if (await refreshAtelier()) {
+      st.sending = false; renderBar();
+      $('services').scrollIntoView({ behavior: 'smooth' });
+      return showErr('changed');
+    }
     const r = await rpc('request_order', {
       p_slug: slug,
       p_name: $('fName').value.trim(),
