@@ -126,6 +126,27 @@ label.lbl { display: block; font-weight: 700; font-size: 14px; margin: 12px 0 6p
 .done h2 { font-family: var(--font-display); font-size: 28px; margin: 0 0 8px; }
 .done p { color: var(--muted); margin: 0 auto 20px; max-width: 420px; }
 .wa { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; background: #1f9d55; color: #fff; }
+/* Orçamento para aprovar */
+.q-hello { font-size: 17px; margin: 20px 0 4px; }
+.q-row { display: flex; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.q-row:last-child { border-bottom: 0; }
+.q-row .n { flex: 1; min-width: 0; }
+.q-row .n b { display: block; }
+.q-row .n small { color: var(--muted); }
+.q-row .v { font-weight: 800; white-space: nowrap; text-align: right; }
+.q-row .v.quote { color: var(--accent); font-weight: 700; font-size: 14px; }
+.q-sum { padding: 6px 14px; }
+.q-sum div { display: flex; justify-content: space-between; padding: 6px 0; }
+.q-sum .big { font-size: 20px; font-weight: 800; border-top: 1px solid var(--line); padding-top: 10px; margin-top: 4px; }
+.q-info { display: grid; gap: 6px; padding: 14px; }
+.state { margin-top: 16px; padding: 14px; border-radius: 12px; font-weight: 700; }
+.state.ok { background: var(--brand-tint); color: var(--brand-deep); }
+.state.warn { background: #fff4e0; color: #8a4b00; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .state.warn { background: #3a2a14; color: #f2c37f; } }
+.actions { display: grid; gap: 10px; margin-top: 18px; }
+.btn-main { background: var(--brand); color: var(--on-brand); width: 100%; }
+.btn-line { background: transparent; border: 1.5px solid var(--brand); color: var(--brand); width: 100%; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
 footer { text-align: center; color: var(--muted); font-size: 12px; margin: 36px 0 12px; }
 footer a { color: inherit; }
 .loading { padding: 60px 0; text-align: center; color: var(--muted); }
@@ -193,6 +214,7 @@ footer a { color: inherit; }
     <footer id="foot"></footer>
   </form>
 
+  <div id="quote" hidden></div>
   <div class="done" id="done" hidden></div>
 </main>
 
@@ -224,6 +246,22 @@ const T = {
     needSlot: 'Escolha o dia e o horário, ou marque "Agora não".', tooMany: 'Você já enviou vários pedidos hoje. Fale direto com o ateliê.',
     sendErr: 'Não foi possível enviar. Tente de novo.', demo: 'Exemplo · nada é enviado',
     g_repair: 'Consertos', g_adjustment: 'Ajustes', g_custom: 'Sob medida', g_other: 'Outros',
+    q_hello: 'Olá, {name}! Confira o orçamento que o ateliê preparou.', q_title: 'Orçamento nº {n}',
+    q_items: 'Peças e serviços', q_discount: 'Desconto', q_total: 'Total', q_deposit: 'Sinal combinado',
+    q_paid: 'Já pago', q_balance: 'Falta pagar', q_due: 'Previsão de entrega', q_appt: 'Horário marcado',
+    q_pending_appt: 'aguardando confirmação', q_notes: 'Observações',
+    q_approve: 'Aprovar orçamento', q_changes: 'Pedir mudança', q_changesPh: 'Conte o que você quer mudar',
+    q_sendChanges: 'Enviar pedido de mudança', q_cancel: 'Voltar',
+    q_isApproved: 'Você aprovou este orçamento em {d}. Obrigada!', q_isChanges: 'Você pediu uma mudança em {d}: "{t}". O ateliê vai ajustar e mandar de novo.',
+    q_hasQuote: 'Alguns itens ainda estão "a combinar". Se quiser, peça para o ateliê definir o valor antes de aprovar.',
+    q_closed: 'Esta encomenda já foi finalizada.', q_status: 'Situação',
+    q_okA: 'Orçamento aprovado!', q_okAP: 'O ateliê já recebeu sua aprovação do pedido nº {n}.',
+    q_okC: 'Pedido de mudança enviado!', q_okCP: 'O ateliê vai ajustar o orçamento nº {n} e mandar de novo para você.',
+    q_waA: 'Olá! Aprovei o orçamento nº {n}.', q_waC: 'Olá! Pedi uma mudança no orçamento nº {n}.',
+    q_notFound: 'Orçamento não encontrado. Confira o link que você recebeu.', q_needNote: 'Escreva o que você quer mudar.',
+    st_quote: 'Orçamento', st_approved: 'Aprovado', st_cutting: 'Corte', st_sewing: 'Costura', st_fitting: 'Prova',
+    st_finishing: 'Acabamento', st_ready: 'Pronto para retirar', st_delivered: 'Entregue', st_cancelled: 'Cancelado',
+    k_delivery: 'Entrega', k_pickup: 'Retirada',
     made: 'Feito com Coser · ReluhSC',
   },
   en: {
@@ -242,6 +280,22 @@ const T = {
     needSlot: 'Choose a day and time, or select "Not now".', tooMany: "You've already sent several requests today. Please contact the studio directly.",
     sendErr: "Couldn't send. Please try again.", demo: 'Sample · nothing is sent',
     g_repair: 'Repairs', g_adjustment: 'Alterations', g_custom: 'Custom-made', g_other: 'Other',
+    q_hello: 'Hi {name}! Here is the quote the studio prepared for you.', q_title: 'Quote #{n}',
+    q_items: 'Garments & services', q_discount: 'Discount', q_total: 'Total', q_deposit: 'Agreed deposit',
+    q_paid: 'Already paid', q_balance: 'Balance due', q_due: 'Estimated delivery', q_appt: 'Appointment',
+    q_pending_appt: 'awaiting confirmation', q_notes: 'Notes',
+    q_approve: 'Approve quote', q_changes: 'Request a change', q_changesPh: 'Tell us what you want to change',
+    q_sendChanges: 'Send change request', q_cancel: 'Back',
+    q_isApproved: 'You approved this quote on {d}. Thank you!', q_isChanges: 'You requested a change on {d}: "{t}". The studio will adjust it and send it again.',
+    q_hasQuote: 'Some items are still "to be quoted". You can ask the studio to price them before approving.',
+    q_closed: 'This order is already closed.', q_status: 'Status',
+    q_okA: 'Quote approved!', q_okAP: 'The studio received your approval for order #{n}.',
+    q_okC: 'Change request sent!', q_okCP: 'The studio will adjust quote #{n} and send it back to you.',
+    q_waA: 'Hi! I approved quote #{n}.', q_waC: 'Hi! I requested a change on quote #{n}.',
+    q_notFound: 'Quote not found. Please check the link you received.', q_needNote: 'Write what you want to change.',
+    st_quote: 'Quote', st_approved: 'Approved', st_cutting: 'Cutting', st_sewing: 'Sewing', st_fitting: 'Fitting',
+    st_finishing: 'Finishing', st_ready: 'Ready for pickup', st_delivered: 'Delivered', st_cancelled: 'Cancelled',
+    k_delivery: 'Delivery', k_pickup: 'Pickup',
     made: 'Made with Coser · ReluhSC',
   },
   es: {
@@ -260,6 +314,22 @@ const T = {
     needSlot: 'Elige el día y el horario, o marca "Ahora no".', tooMany: 'Ya enviaste varios pedidos hoy. Habla directo con el taller.',
     sendErr: 'No se pudo enviar. Intenta de nuevo.', demo: 'Ejemplo · no se envía nada',
     g_repair: 'Arreglos', g_adjustment: 'Ajustes', g_custom: 'A medida', g_other: 'Otros',
+    q_hello: '¡Hola, {name}! Revisa el presupuesto que preparó el taller.', q_title: 'Presupuesto nº {n}',
+    q_items: 'Prendas y servicios', q_discount: 'Descuento', q_total: 'Total', q_deposit: 'Seña acordada',
+    q_paid: 'Ya pagado', q_balance: 'Falta pagar', q_due: 'Entrega estimada', q_appt: 'Horario',
+    q_pending_appt: 'esperando confirmación', q_notes: 'Notas',
+    q_approve: 'Aprobar presupuesto', q_changes: 'Pedir un cambio', q_changesPh: 'Cuéntanos qué quieres cambiar',
+    q_sendChanges: 'Enviar pedido de cambio', q_cancel: 'Volver',
+    q_isApproved: 'Aprobaste este presupuesto el {d}. ¡Gracias!', q_isChanges: 'Pediste un cambio el {d}: "{t}". El taller lo ajustará y te lo enviará de nuevo.',
+    q_hasQuote: 'Algunos ítems todavía están "a convenir". Puedes pedir al taller que defina el precio antes de aprobar.',
+    q_closed: 'Este pedido ya fue finalizado.', q_status: 'Estado',
+    q_okA: '¡Presupuesto aprobado!', q_okAP: 'El taller ya recibió tu aprobación del pedido nº {n}.',
+    q_okC: '¡Pedido de cambio enviado!', q_okCP: 'El taller ajustará el presupuesto nº {n} y te lo enviará de nuevo.',
+    q_waA: '¡Hola! Aprobé el presupuesto nº {n}.', q_waC: '¡Hola! Pedí un cambio en el presupuesto nº {n}.',
+    q_notFound: 'Presupuesto no encontrado. Revisa el link que recibiste.', q_needNote: 'Escribe qué quieres cambiar.',
+    st_quote: 'Presupuesto', st_approved: 'Aprobado', st_cutting: 'Corte', st_sewing: 'Costura', st_fitting: 'Prueba',
+    st_finishing: 'Terminación', st_ready: 'Listo para retirar', st_delivered: 'Entregado', st_cancelled: 'Cancelado',
+    k_delivery: 'Entrega', k_pickup: 'Retiro',
     made: 'Hecho con Coser · ReluhSC',
   },
 };
@@ -469,6 +539,7 @@ async function submit() {
 $('langs').addEventListener('click', (e) => {
   const b = e.target.closest('[data-l]'); if (!b) return;
   st.lang = b.dataset.l; try { localStorage.setItem('coser_lang', st.lang); } catch (_) {}
+  if (qs.q) { renderLangs(); renderStatic(); renderQuote(); return; }
   if (isDemo) { st.at = demoAtelier(); st.sel.clear(); }
   renderAll();
 });
@@ -503,7 +574,154 @@ $('send').addEventListener('click', submit);
 $('form').addEventListener('submit', (e) => { e.preventDefault(); submit(); });
 ['fName', 'fPhone'].forEach((id) => $(id).addEventListener('input', () => { $('err').hidden = true; }));
 
+// ===================== Orçamento para aprovar (?o=<token>) =====================
+const token = (params.get('o') || '').trim();
+const qs = { q: null, mode: 'view', busy: false };
+
+function itemName(i) {
+  const svc = (st.lang !== 'pt' && i['name_' + st.lang]) || i.name;
+  return [svc, i.garment].filter(Boolean).join(' — ') || '—';
+}
+
+function renderQuote() {
+  const q = qs.q, a = q.atelier;
+  st.at = { currency: a.currency };
+  $('atName').textContent = a.name; $('atSub').textContent = a.address || ''; $('atSub').hidden = !a.address;
+  document.title = t('q_title', { n: q.number }) + ' · ' + a.name;
+  const d = (x) => new Intl.DateTimeFormat(LOCALES[st.lang], { dateStyle: 'medium' }).format(new Date(x));
+  const dt = (x) => new Intl.DateTimeFormat(LOCALES[st.lang], { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(x));
+  const balance = Number(q.total) - Number(q.paid);
+  const hasQuote = q.items.some((i) => !(Number(i.unit_price) > 0));
+  const closed = q.status === 'cancelled' || q.status === 'delivered';
+  const kindName = (k) => t('k_' + k);
+
+  let state = '';
+  if (closed) state = `<div class="state ok">${esc(t('q_closed'))}</div>`;
+  else if (q.approval === 'approved') state = `<div class="state ok">${esc(t('q_isApproved', { d: d(q.approval_at) }))}</div>`;
+  else if (q.approval === 'changes_requested') state = `<div class="state warn">${esc(t('q_isChanges', { d: d(q.approval_at), t: q.approval_note || '' }))}</div>`;
+
+  const canAct = !closed && q.approval !== 'approved' && q.approval !== 'changes_requested';
+  const typed = $('qNote') ? $('qNote').value : '';
+  $('quote').innerHTML = `
+    <p class="q-hello">${esc(t('q_hello', { name: q.customer }))}</p>
+    <section class="step">
+      <div class="step-h"><h2>${esc(t('q_title', { n: q.number }))}</h2></div>
+      <div class="group-t">${esc(t('q_items'))}</div>
+      <div class="card">
+        ${q.items.map((i) => `
+          <div class="q-row">
+            <div class="n"><b>${esc(itemName(i))}</b>${i.description ? `<small>${esc(i.description)}</small>` : ''}</div>
+            ${Number(i.unit_price) > 0
+              ? `<div class="v">${Number(i.qty) > 1 ? Number(i.qty) + ' × ' : ''}${money(Number(i.unit_price))}</div>`
+              : `<div class="v quote">${esc(t('quote'))}</div>`}
+          </div>`).join('')}
+        <div class="q-sum">
+          ${Number(q.discount) > 0 ? `<div><span>${esc(t('q_discount'))}</span><span>− ${money(Number(q.discount))}</span></div>` : ''}
+          <div class="big"><span>${esc(t('q_total'))}</span><span>${money(Number(q.total))}${hasQuote ? ' *' : ''}</span></div>
+          ${Number(q.deposit) > 0 ? `<div><span>${esc(t('q_deposit'))}</span><span>${money(Number(q.deposit))}</span></div>` : ''}
+          ${Number(q.paid) > 0 ? `<div><span>${esc(t('q_paid'))}</span><span>${money(Number(q.paid))}</span></div>
+             <div><b>${esc(t('q_balance'))}</b><b>${money(Math.max(0, balance))}</b></div>` : ''}
+        </div>
+      </div>
+      <div class="card q-info" style="margin-top:12px">
+        <div><b>${esc(t('q_status'))}:</b> ${esc(t('st_' + q.status))}</div>
+        ${q.due_date ? `<div><b>${esc(t('q_due'))}:</b> ${esc(d(q.due_date + 'T12:00:00'))}</div>` : ''}
+        ${q.appointments.map((p) => `<div><b>${esc(t('q_appt'))}:</b> ${esc(kindName(p.kind))} · ${esc(dt(p.starts_at))}${p.status === 'requested' ? ` (${esc(t('q_pending_appt'))})` : ''}</div>`).join('')}
+        ${q.description ? `<div><b>${esc(t('q_notes'))}:</b> ${esc(q.description)}</div>` : ''}
+      </div>
+      ${hasQuote && canAct ? `<div class="state warn">* ${esc(t('q_hasQuote'))}</div>` : ''}
+      ${state}
+      ${canAct && qs.mode === 'view' ? `
+        <div class="actions">
+          <button class="btn btn-main" type="button" id="qApprove">${esc(t('q_approve'))}</button>
+          <button class="btn btn-line" type="button" id="qChanges">${esc(t('q_changes'))}</button>
+        </div>` : ''}
+      ${canAct && qs.mode === 'changes' ? `
+        <label class="lbl" for="qNote">${esc(t('q_changes'))}</label>
+        <textarea class="field" id="qNote" maxlength="1000" placeholder="${esc(t('q_changesPh'))}"></textarea>
+        <div class="msg" id="qErr" hidden></div>
+        <div class="actions">
+          <button class="btn btn-main" type="button" id="qSendChanges">${esc(t('q_sendChanges'))}</button>
+          <button class="btn btn-line" type="button" id="qBack">${esc(t('q_cancel'))}</button>
+        </div>` : ''}
+    </section>
+    <footer><a href="https://reluhsc.com" target="_blank" rel="noopener">${esc(t('made'))}</a></footer>`;
+  if (typed && $('qNote')) $('qNote').value = typed;
+  $('quote').hidden = false;
+}
+
+async function respondQuote(action) {
+  if (qs.busy) return;
+  let note = null;
+  if (action === 'changes') {
+    note = ($('qNote').value || '').trim();
+    if (note.length < 3) { $('qErr').textContent = t('q_needNote'); $('qErr').hidden = false; return; }
+  }
+  qs.busy = true;
+  document.querySelectorAll('#quote button').forEach((b) => (b.disabled = true));
+  try {
+    if (!isDemoQuote) await rpc('respond_quote', { p_token: token, p_action: action, p_note: note });
+    const n = qs.q.number, phone = (qs.q.atelier.phone || '').replace(/\D/g, '');
+    $('quote').hidden = true;
+    $('done').innerHTML = `
+      <div class="ok"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <h2>${esc(t(action === 'approve' ? 'q_okA' : 'q_okC'))}</h2>
+      <p>${esc(t(action === 'approve' ? 'q_okAP' : 'q_okCP', { n }))}</p>
+      ${phone ? `<a class="btn wa" href="https://wa.me/${phone}?text=${encodeURIComponent(t(action === 'approve' ? 'q_waA' : 'q_waC', { n }))}" target="_blank" rel="noopener">${esc(t('doneWa'))}</a>` : ''}`;
+    $('done').hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) {
+    qs.busy = false;
+    document.querySelectorAll('#quote button').forEach((b) => (b.disabled = false));
+    alertMsg(t('sendErr'));
+  }
+}
+function alertMsg(m) { const el = $('qErr'); if (el) { el.textContent = m; el.hidden = false; } else { $('fatal').textContent = m; $('fatal').hidden = false; } }
+
+$('quote').addEventListener('click', (e) => {
+  const id = e.target.id;
+  if (id === 'qApprove') respondQuote('approve');
+  else if (id === 'qChanges') { qs.mode = 'changes'; renderQuote(); $('qNote').focus(); }
+  else if (id === 'qBack') { qs.mode = 'view'; renderQuote(); }
+  else if (id === 'qSendChanges') respondQuote('changes');
+});
+
+const isDemoQuote = token === 'demo';
+function demoQuote() {
+  return { number: 57, status: 'quote', description: '', approval: 'pending', approval_note: null, approval_at: null,
+    due_date: new Date(Date.now() + 9 * 864e5).toISOString().slice(0, 10), discount: 10, total: 155, deposit: 70, paid: 0,
+    customer: 'Ana', atelier: { name: 'Ateliê da Maria', phone: '', address: '', currency: 'BRL', locale: 'pt' },
+    items: [
+      { name: 'Barra de calça', name_en: 'Pants hem', name_es: 'Bastilla de pantalón', garment: 'Calça jeans', qty: 2, unit_price: 30 },
+      { name: 'Troca de zíper', name_en: 'Zipper replacement', name_es: 'Cambio de cremallera', garment: 'Jaqueta', qty: 1, unit_price: 40, description: 'Zíper metálico 50 cm' },
+      { name: null, garment: 'Ajuste extra na cintura', qty: 1, unit_price: 65 },
+    ],
+    appointments: [{ kind: 'fitting', starts_at: new Date(Date.now() + 3 * 864e5).toISOString(), status: 'scheduled' }] };
+}
+
+async function loadQuote() {
+  try {
+    const q = isDemoQuote ? demoQuote() : await rpc('public_quote', { p_token: token });
+    $('loading').hidden = true;
+    if (!q) { $('atName').textContent = 'Coser'; $('fatal').textContent = t('q_notFound'); $('fatal').hidden = false; return; }
+    qs.q = q;
+    let saved = null; try { saved = localStorage.getItem('coser_lang'); } catch (_) {}
+    if (!params.get('lang') && !saved && T[q.atelier.locale]) st.lang = q.atelier.locale;
+    renderLangs(); renderStatic(); renderQuote();
+  } catch (e) {
+    $('loading').hidden = true; $('atName').textContent = 'Coser';
+    $('fatal').textContent = t('loadErr'); $('fatal').hidden = false;
+  }
+}
+
 async function load() {
+  if (token) {
+    let saved = null; try { saved = localStorage.getItem('coser_lang'); } catch (_) {}
+    const nav = (navigator.language || 'pt').slice(0, 2);
+    st.lang = T[params.get('lang')] ? params.get('lang') : T[saved] ? saved : T[nav] ? nav : 'pt';
+    renderLangs(); renderStatic();
+    return loadQuote();
+  }
   let saved = null; try { saved = localStorage.getItem('coser_lang'); } catch (_) {}
   const nav = (navigator.language || 'pt').slice(0, 2);
   st.lang = T[params.get('lang')] ? params.get('lang') : T[saved] ? saved : T[nav] ? nav : 'pt';
