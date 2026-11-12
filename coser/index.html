@@ -396,6 +396,30 @@ function renderStatic() {
   $('foot').innerHTML = `<a href="https://reluhsc.com" target="_blank" rel="noopener">${esc(t('made'))}</a>`;
 }
 
+// ---------- Cor do ateliê (a mesma escolhida no app) ----------
+// [cor, cor escura, fundo claro] no modo claro e no escuro. 'mint' é o verde-azulado do Coser.
+const BRAND = {
+  rose:       { light: ['#C2185B', '#8E1043', '#FCE4EC'], dark: ['#F48FB1', '#FFD1E1', '#3C2230'] },
+  lavender:   { light: ['#6A4FB6', '#4A3487', '#EDE7F6'], dark: ['#B39DDB', '#E3D9FF', '#2C2540'] },
+  mint:       { light: ['#0E6B66', '#08504C', '#DFF2EF'], dark: ['#5CC8BD', '#9FE3DA', '#1D3532'] },
+  navy:       { light: ['#283593', '#1A237E', '#E8EAF6'], dark: ['#9FA8DA', '#DDE1FF', '#22263F'] },
+  terracotta: { light: ['#A9462A', '#7A2E18', '#FBE9E3'], dark: ['#F0A48A', '#FFD8CB', '#3A241C'] },
+};
+let brandKey = null;
+const darkMq = window.matchMedia('(prefers-color-scheme: dark)');
+function applyBrand(key) {
+  if (key) brandKey = key;
+  const b = BRAND[brandKey];
+  if (!b) return;
+  const dark = darkMq.matches;
+  const [c, deep, tint] = dark ? b.dark : b.light;
+  const r = document.documentElement.style;
+  r.setProperty('--brand', c); r.setProperty('--brand-deep', deep); r.setProperty('--brand-tint', tint);
+  r.setProperty('--on-brand', dark ? '#111111' : '#ffffff');
+  const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.content = c;
+}
+darkMq.addEventListener?.('change', () => applyBrand());
+
 function setLogo(url) {
   const img = $('atLogo');
   if (url) { img.src = url; img.hidden = false; img.onerror = () => { img.hidden = true; }; }
@@ -404,6 +428,7 @@ function setLogo(url) {
 
 function renderAtelier() {
   const a = st.at;
+  applyBrand(a.theme);
   setLogo(a.logo_url);
   $('atName').textContent = a.name;
   $('atSub').textContent = a.address || '';
@@ -642,6 +667,7 @@ function itemName(i) {
 function renderQuote() {
   const q = qs.q, a = q.atelier;
   st.at = { currency: a.currency };
+  applyBrand(a.theme);
   setLogo(a.logo_url);
   $('atName').textContent = a.name; $('atSub').textContent = a.address || ''; $('atSub').hidden = !a.address;
   document.title = t('q_title', { n: q.number }) + ' · ' + a.name;
