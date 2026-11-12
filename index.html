@@ -217,6 +217,7 @@ footer .tagline{font-family:var(--display);font-size:12px;letter-spacing:.18em;c
 footer nav{display:flex;flex-wrap:wrap;gap:12px 24px}
 footer nav a{color:var(--muted);text-decoration:none;font-size:14px}
 footer nav a:hover{color:var(--fg)}
+footer nav a.owner-link{border:1px solid var(--line);border-radius:8px;padding:4px 10px}
 footer .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);display:grid;gap:6px;font-size:12.5px;color:var(--faint)}
 </style>
 </head>
@@ -586,6 +587,7 @@ footer .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
         <a href="#process" data-i18n="nav.process">How we work</a>
         <a href="#about" data-i18n="nav.about">About</a>
         <a href="#contact" data-i18n="nav.contact">Contact</a>
+        <a class="owner-link" href="https://admin.reluhsc.com" rel="nofollow"><span aria-hidden="true">🔒</span> <span data-i18n="nav.owner">Owner area</span></a>
       </nav>
     </div>
     <div class="legal">
@@ -599,7 +601,7 @@ footer .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
 (function(){
   var T = {
     pt: {
-      "nav.services":"Serviços","nav.products":"Produtos","nav.process":"Como trabalhamos","nav.about":"Sobre","nav.contact":"Contato","nav.cta":"Iniciar projeto",
+      "nav.services":"Serviços","nav.products":"Produtos","nav.process":"Como trabalhamos","nav.about":"Sobre","nav.contact":"Contato","nav.owner":"Área do proprietário","nav.cta":"Iniciar projeto",
       "hero.eyebrow":"Software · Inteligência artificial · Automação industrial",
       "hero.t1":"Software que pensa.","hero.t2":"Máquinas que avisam do que precisam.",
       "hero.sub":"A ReluhSC cria apps, agentes de IA e IA industrial para empresas que querem trabalhar de forma mais inteligente. Feito na Carolina do Sul, entregue em inglês, português e espanhol.",
@@ -649,7 +651,7 @@ footer .legal{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
       "ft.rights":"© 2026 ReluhSC · Carolina do Sul, EUA","ft.tm":"Siemens e TIA Portal são marcas da Siemens AG. A ReluhSC é uma empresa independente, sem afiliação ou endosso da Siemens."
     },
     es: {
-      "nav.services":"Servicios","nav.products":"Productos","nav.process":"Cómo trabajamos","nav.about":"Nosotros","nav.contact":"Contacto","nav.cta":"Iniciar proyecto",
+      "nav.services":"Servicios","nav.products":"Productos","nav.process":"Cómo trabajamos","nav.about":"Nosotros","nav.contact":"Contacto","nav.owner":"Área del propietario","nav.cta":"Iniciar proyecto",
       "hero.eyebrow":"Software · Inteligencia artificial · Automatización industrial",
       "hero.t1":"Software que piensa.","hero.t2":"Máquinas que te dicen lo que necesitan.",
       "hero.sub":"ReluhSC crea apps, agentes de IA e IA industrial para empresas que quieren trabajar de forma más inteligente. Hecho en Carolina del Sur, entregado en inglés, portugués y español.",
